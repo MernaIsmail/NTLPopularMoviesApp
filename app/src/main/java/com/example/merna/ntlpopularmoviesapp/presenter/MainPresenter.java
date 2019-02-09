@@ -34,7 +34,6 @@ public class MainPresenter implements IMainPresenter {
                         MoviesModel data = response.body();
                         if (data != null && data.getResult() != null) {
                             List<Movie> result = data.getResult();
-                            Log.d("datax***", data.getResult().get(0).getOriginalTitle());
                             mainView.updateView(data);
                         }
                     }
