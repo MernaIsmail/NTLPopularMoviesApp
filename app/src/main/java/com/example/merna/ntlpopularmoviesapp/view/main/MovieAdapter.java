@@ -1,4 +1,4 @@
-package com.example.merna.ntlpopularmoviesapp.view;
+package com.example.merna.ntlpopularmoviesapp.view.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -18,10 +18,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private Context context;
     private List<Movie> moviesList;
+    private ItemClickListener itemClickListener;
 
-    public MovieAdapter(Context context, List<Movie> moviesList) {
+    public MovieAdapter(Context context, List<Movie> moviesList, ItemClickListener itemClickListener) {
         this.context = context;
         this.moviesList = moviesList;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -42,12 +44,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return moviesList.size();
     }
 
-    protected class MovieViewHolder extends RecyclerView.ViewHolder {
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    protected class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView movieImage;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             movieImage = itemView.findViewById(R.id.movie_imageView);
+            movieImage.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (itemClickListener != null) itemClickListener.onItemClick(v, getAdapterPosition());
+
         }
     }
 }

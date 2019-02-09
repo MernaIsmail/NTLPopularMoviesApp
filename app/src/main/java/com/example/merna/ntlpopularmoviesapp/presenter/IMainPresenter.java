@@ -1,5 +1,7 @@
 package com.example.merna.ntlpopularmoviesapp.presenter;
 
 public interface IMainPresenter {
-    void getPopularMoves();
+    void getPopularMovies();
+
+    void getTopRatedMovies();
 }
