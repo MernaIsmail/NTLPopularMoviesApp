@@ -5,20 +5,43 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie implements Parcelable {
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "movie")
+public class Movie implements Parcelable {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
     @SerializedName("id")
     private String id;
+    @ColumnInfo(name = "original_title")
     @SerializedName("original_title")
     private String originalTitle;
+    @ColumnInfo(name = "overview")
     @SerializedName("overview")
     private String overview;
+    @ColumnInfo(name = "release_date")
     @SerializedName("release_date")
     private String releaseDate;
+    @ColumnInfo(name = "poster_path")
     @SerializedName("poster_path")
     private String posterPath;
+    @ColumnInfo(name = "vote_average")
     @SerializedName("vote_average")
     private Float voteAverage;
+
+
+    public Movie(String id, String originalTitle, String overview, String releaseDate, String posterPath, Float voteAverage) {
+        this.id = id;
+        this.originalTitle = originalTitle;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.posterPath = posterPath;
+        this.voteAverage = voteAverage;
+    }
 
     public String getId() {
         return id;

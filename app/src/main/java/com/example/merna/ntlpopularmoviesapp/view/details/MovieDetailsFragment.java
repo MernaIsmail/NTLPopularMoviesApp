@@ -1,9 +1,7 @@
 package com.example.merna.ntlpopularmoviesapp.view.details;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +22,10 @@ import com.example.merna.ntlpopularmoviesapp.utils.ImageUploaderUtil;
 
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class MovieDetailsFragment extends Fragment implements IDetailsView {
 
     private static final String ARG_MOVIE = "ARG_MOVIE";
@@ -39,6 +41,7 @@ public class MovieDetailsFragment extends Fragment implements IDetailsView {
     private TextView releaseDateTextView;
     private RecyclerView trailerRecyclerView;
     private RecyclerView reviewsRecyclerView;
+    private boolean isFavorite;
 
     public MovieDetailsFragment() {
         presenter = new DetailsPresenter(this);
@@ -67,8 +70,23 @@ public class MovieDetailsFragment extends Fragment implements IDetailsView {
         View rootView = inflater.inflate(R.layout.fragment_movie_details, container, false);
         initUI(rootView);
         setContent();
+        presenter.setupFavBtn(movie.getId());
         presenter.getReviewsById(movie.getId());
         presenter.getTrailersById(movie.getId());
+        favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFavorite) {
+                    favBtn.setBackgroundResource(R.drawable.unfav);
+                    presenter.deleteFavoriteMovie(movie);
+                    isFavorite = false;
+                } else {
+                    favBtn.setBackgroundResource(R.drawable.fav);
+                    presenter.insertFavoriteMovie(movie);
+                    isFavorite = true;
+                }
+            }
+        });
         return rootView;
     }
 
@@ -106,12 +124,27 @@ public class MovieDetailsFragment extends Fragment implements IDetailsView {
     public void setReviewRecyclerView(List<Reviews> reviews) {
         if (reviews != null && reviews.size() > 0) {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                    LinearLayoutManager.VERTICAL,
+                    RecyclerView.VERTICAL,
                     false);
             reviewsRecyclerView.setLayoutManager(layoutManager);
             reviewsRecyclerView.setHasFixedSize(true);
             reviewsRecyclerView.setAdapter(new ReviewAdapter(reviews));
             reviewsRecyclerView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public Context getViewContext() {
+        return getContext().getApplicationContext();
+    }
+
+    @Override
+    public void setFavButton() {
+        favBtn.setBackgroundResource(R.drawable.fav);
+    }
+
+    @Override
+    public void setFavorite(boolean b) {
+        isFavorite = b;
     }
 }
