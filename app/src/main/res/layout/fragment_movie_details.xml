@@ -42,6 +42,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="5.4" />
+
+                <ImageButton
+                    android:id="@+id/movieDetails_favBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:contentDescription="fav. button"
+                    android:src="@drawable/unfav" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -50,6 +58,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="description" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movieDetails_trailer_recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movieDetails_reviews_recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:visibility="gone" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -16,8 +16,8 @@ import android.widget.ProgressBar;
 import com.example.merna.ntlpopularmoviesapp.R;
 import com.example.merna.ntlpopularmoviesapp.model.Movie;
 import com.example.merna.ntlpopularmoviesapp.model.MoviesModel;
-import com.example.merna.ntlpopularmoviesapp.presenter.IMainPresenter;
-import com.example.merna.ntlpopularmoviesapp.presenter.MainPresenter;
+import com.example.merna.ntlpopularmoviesapp.presenter.main.IMainPresenter;
+import com.example.merna.ntlpopularmoviesapp.presenter.main.MainPresenter;
 import com.example.merna.ntlpopularmoviesapp.view.details.MovieDetailsFragment;
 
 import java.util.List;
@@ -48,6 +48,10 @@ public class MainFragment extends Fragment implements IMainView, MovieAdapter.It
                 return true;
             case R.id.sort_by_most_popular:
                 mainPresenter.getPopularMovies();
+                item.setChecked(true);
+                return true;
+            case R.id.fav_movies:
+                mainPresenter.getFavoritesMovies();
                 item.setChecked(true);
                 return true;
             default:

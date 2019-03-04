@@ -16,6 +16,9 @@
                 <item
                     android:id="@+id/sort_by_top_rated"
                     android:title="top rated" />
+                <item
+                    android:id="@+id/fav_movies"
+                    android:title="favorites" />
             </group>
         </menu>
     </item>

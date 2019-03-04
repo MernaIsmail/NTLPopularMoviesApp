@@ -1,4 +1,4 @@
-package com.example.merna.ntlpopularmoviesapp.presenter;
+package com.example.merna.ntlpopularmoviesapp.presenter.main;
 
 import android.util.Log;
 
@@ -69,5 +69,10 @@ public class MainPresenter implements IMainPresenter {
                 }
             }
         });
+    }
+
+    @Override
+    public void getFavoritesMovies() {
+        // TODO: 3/4/2019 get favv movies..
     }
 }
