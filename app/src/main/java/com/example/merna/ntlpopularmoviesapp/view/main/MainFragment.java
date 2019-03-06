@@ -19,6 +19,7 @@ import com.example.merna.ntlpopularmoviesapp.view.details.MovieDetailsFragment;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -36,6 +37,15 @@ public class MainFragment extends Fragment implements IMainView, MovieAdapter.It
 
     public MainFragment() {
         mainPresenter = new MainPresenter(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if ((moviesRecyclerView.getLayoutManager()) != null) {
+            int index = ((GridLayoutManager) moviesRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            if (index != -1) viewModel.setAdapterPosition(index);
+        }
     }
 
     @Override
@@ -98,8 +108,6 @@ public class MainFragment extends Fragment implements IMainView, MovieAdapter.It
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-
-
     }
 
     @Override
@@ -119,7 +127,16 @@ public class MainFragment extends Fragment implements IMainView, MovieAdapter.It
         viewModel.setMovies(moviesModel);
         this.moviesModel = moviesModel;
         setMoviesRecyclerView(moviesModel);
+        reArrangeRecycleView();
         hideLoading();
+
+    }
+
+    private void reArrangeRecycleView() {
+        if (moviesRecyclerView != null && viewModel.getAdapterPosition() != -1) {
+            moviesRecyclerView.scrollToPosition(viewModel.getAdapterPosition());
+            viewModel.setAdapterPosition(-1);
+        }
     }
 
     @Override

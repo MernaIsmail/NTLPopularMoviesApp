@@ -16,6 +16,7 @@ public class MovieViewModel extends AndroidViewModel {
     private LiveData<List<Movie>> favMovies;
     private List<Movie> movies;
     private int currentSelectedSort = -1;
+    private int adapterPosition = -1;
 
     public MovieViewModel(Application application) {
         super(application);
@@ -44,4 +45,11 @@ public class MovieViewModel extends AndroidViewModel {
         this.currentSelectedSort = currentSelectedSort;
     }
 
+    public int getAdapterPosition() {
+        return adapterPosition;
+    }
+
+    public void setAdapterPosition(int adapterPosition) {
+        this.adapterPosition = adapterPosition;
+    }
 }
